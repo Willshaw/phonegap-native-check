@@ -6,7 +6,7 @@
     <name>Native Checks</name>
     <description>Lookup simple native information</description>
 
-    <js-module src="www/plugins/native-checks.js" name="NativeChecks">
+    <js-module src="www/native-checks.js" name="NativeChecks">
         <clobbers target="NativeChecks" />
     </js-module>
 
