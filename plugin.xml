@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="com.willshawmedia.phonegap.checks"
+    version="1">
+
+    <name>Native Checks</name>
+    <description>Lookup simple native information</description>
+
+    <js-module src="www/plugins/native-checks.js" name="NativeChecks">
+        <clobbers target="NativeChecks" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+
+        <config-file target="config.xml" parent="/*">
+          <feature name="NativeChecks">
+            <param name="ios-package" value="NativeChecks"/>
+          </feature>
+        </config-file>
+
+        <header-file src="src/ios/NativeChecks.h" />
+        <source-file src="src/ios/NativeChecks.m" />
+
+    </platform>
+
+</plugin>
