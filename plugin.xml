@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    id="com.willshawmedia.phonegap.checks"
+    id="com.willshawmedia.phonegap.NativeChecks"
     version="1">
 
     <name>Native Checks</name>
@@ -10,9 +10,7 @@
         <clobbers target="NativeChecks" />
     </js-module>
 
-    <!-- ios -->
     <platform name="ios">
-
         <config-file target="config.xml" parent="/*">
           <feature name="NativeChecks">
             <param name="ios-package" value="NativeChecks"/>
@@ -21,7 +19,14 @@
 
         <header-file src="src/ios/NativeChecks.h" />
         <source-file src="src/ios/NativeChecks.m" />
+    </platform>
 
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="NativeChecks">
+                <param name="android-package" value="com.willshawmedia.phonegap.NativeChecks"/>
+            </feature>
+        </config-file>
     </platform>
 
 </plugin>

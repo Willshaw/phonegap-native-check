@@ -8,7 +8,6 @@
 
 #import "AppChecks.h"
 #import <Cordova/CDVPluginResult.h>
-#import "Mixpanel.h"
 
 @implementation AppChecks
 
@@ -134,13 +133,6 @@
         UIRemoteNotificationTypeAlert |
         UIRemoteNotificationTypeSound
      ];
-}
-
-- (void) identifyMixpanel:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-    Mixpanel *mixpanel = [Mixpanel sharedInstance];
-    
-    NSString* user = [arguments objectAtIndex:1];
-    [mixpanel identify:user];
 }
 
 @end
