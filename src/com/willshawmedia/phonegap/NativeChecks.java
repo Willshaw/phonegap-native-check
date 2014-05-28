@@ -1,4 +1,4 @@
-com.willshawmedia.phonegap.NativeChecks;
+package com.willshawmedia.phonegap.NativeChecks;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
