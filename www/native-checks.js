@@ -1,12 +1,6 @@
 var NativeChecks = {
-    getDeviceID: function( callback, error_callback ) {
-        cordova.exec(
-            callback, 
-            error_callback, 
-            "NativeChecks", 
-            "getDeviceID", 
-            []
-        );
+    getAppVersion: function( callback, error_callback ) {
+        callback( device.uuid );
     }
 };
 

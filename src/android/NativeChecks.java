@@ -7,75 +7,34 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.*;
-
-// import android.provider.Settings.Secure;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 public class NativeChecks extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if ( action.equals( "getDeviceID" ) ) {
-            this.getDeviceID( callbackContext );
+        if ( action.equals( "getAppVersion" ) ) {
+            this.getAppVersion( callbackContext );
             return true;
         }
         return false;
     }
 
-    private void getDeviceID( CallbackContext callbackContext ) {
+    private void getAppVersion( CallbackContext callbackContext ) {
         try {
-            String device_id = "GETSOCIALITE";
-            callbackContext.success( device_id );
+            PackageManager packageManager = this.cordova.getActivity().getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(
+                                        this.cordova.getActivity().getPackageName(),
+                                        0
+                                    );
+
+            callbackContext.success( packageInfo.versionCode );
         } catch ( Exception e ) {
             callbackContext.error( e.getMessage() );
         }
     }
 
-    // private void getDeviceID(CallbackContext callbackContext) {
-        
-//         try {
-//             // get device ID, hash with GETSOCIALITE
-//             private String android_id = Secure.getString(
-//                                             getContext().getContentResolver(),
-//                                             Secure.ANDROID_ID
-//                                         ); 
-
-//             // hash and return string
-//             MessageDigest digest = MessageDigest.getInstance( "SHA-256" );
-//             byte[] hash = digest.digest(base.getBytes("UTF-8"));
-//             StringBuffer hexString = new StringBuffer();
-
-//             for (int i = 0; i < hash.length; i++) {
-//                 String hex = Integer.toHexString(0xff & hash[i]);
-//                 if(hex.length() == 1) hexString.append('0');
-//                 hexString.append(hex);
-//             }
-
-//             callbackContext.success( hexString.toString() );
-//         } catch (IOException e) {
-//             callbackContext.error( e.getMessage() );
-//         }
-
-//     }
-
-//     // private void getVersion:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-//     //     NSString* callbackId = [arguments objectAtIndex:0];
-        
-//     //     CDVPluginResult* pluginResult = nil;
-//     //     NSString* javaScript = nil;
-        
-//     //     @try {
-                    
-//     //         NSString* version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-            
-//     //         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:version];
-//     //         javaScript = [pluginResult toSuccessCallbackString:callbackId];
-//     //     } @catch (NSException* exception) {
-//     //         // could not get locale
-//     //         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_JSON_EXCEPTION messageAsString:[exception reason]];
-//     //         javaScript = [pluginResult toErrorCallbackString:callbackId];
-//     //     }
-//     //     [self writeJavascript:javaScript];
 //     // }
 
 //     // private void checkFirstRun:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
