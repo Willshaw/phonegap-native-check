@@ -7,28 +7,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.*;
+
 // import android.provider.Settings.Secure;
 
 public class NativeChecks extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("echo")) {
-            String message = args.getString(0);
-            this.echo(message, callbackContext);
+        if ( action.equals( "getDeviceID" ) ) {
+            this.getDeviceID( callbackContext );
             return true;
         }
         return false;
     }
 
-    private void echo(String message, CallbackContext callbackContext) {
-        if (message != null && message.length() > 0) {
-            callbackContext.success(message);
-        } else {
-            callbackContext.error("Expected one non-empty string argument.");
+    private void getDeviceID( CallbackContext callbackContext ) {
+        try {
+            String device_id = "GETSOCIALITE";
+            callbackContext.success( device_id );
+        } catch ( Exception e ) {
+            callbackContext.error( e.getMessage() );
         }
     }
-    
+
     // private void getDeviceID(CallbackContext callbackContext) {
         
 //         try {
@@ -37,7 +39,6 @@ public class NativeChecks extends CordovaPlugin {
 //                                             getContext().getContentResolver(),
 //                                             Secure.ANDROID_ID
 //                                         ); 
-//             private String device_id = android_id + "GETSOCIALITE";
 
 //             // hash and return string
 //             MessageDigest digest = MessageDigest.getInstance( "SHA-256" );

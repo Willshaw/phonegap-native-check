@@ -1,8 +1,12 @@
 var NativeChecks = {
-    echo: function(str, callback) {
-        cordova.exec(callback, function(err) {
-            callback('Nothing to echo.',err);
-        }, "NativeChecks", "echo", [str]);
+    getDeviceID: function( callback, error_callback ) {
+        cordova.exec(
+            callback, 
+            error_callback, 
+            "NativeChecks", 
+            "getDeviceID", 
+            []
+        );
     }
 };
 
@@ -23,19 +27,6 @@ module.exports = NativeChecks;
 //             "getVersion",
 //             []
 //         );
-//     };
-
-//     this.getDeviceID = function() {
-//         cordova.exec(
-//             function( device_id ) {
-//                 return device_id;
-//             },
-//             function(err) {},
-//             "AppChecks",
-//             "getDeviceID",
-//             []
-//         );
-        
 //     };
 
 //     this.checkFirstRun = function() {
