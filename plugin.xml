@@ -3,7 +3,7 @@
     id="com.willshawmedia.phonegap.NativeChecks"
     version="1">
 
-    <name>Native Checks</name>
+    <name>NativeChecks</name>
     <description>Lookup simple native information</description>
 
     <js-module src="www/native-checks.js" name="NativeChecks">
@@ -27,6 +27,8 @@
                 <param name="android-package" value="com.willshawmedia.phonegap.NativeChecks"/>
             </feature>
         </config-file>
+        <source-file src="src/android/NativeChecks.java" target-dir="src/com/willshawmedia/phonegap" />      
     </platform>
+
 
 </plugin>
