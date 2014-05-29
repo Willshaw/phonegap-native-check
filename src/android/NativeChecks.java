@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 
 public class NativeChecks extends CordovaPlugin {
 
@@ -16,6 +17,9 @@ public class NativeChecks extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if ( action.equals( "getAppVersion" ) ) {
             this.getAppVersion( callbackContext );
+            return true;
+        } else if ( action.equals( "checkFirstRun" ) ) {
+            this.checkFirstRun( callbackContext );
             return true;
         }
         return false;
@@ -35,34 +39,27 @@ public class NativeChecks extends CordovaPlugin {
         }
     }
 
-//     // }
+    private void checkFirstRun( CallbackContext callbackContext ) {
+        try {
+            SharedPreferences prefs = this.cordova.getActivity().getSharedPreferences(
+                                        "com.willshawmedia.PluginCheck", 
+                                        0
+                                    );
 
-//     // private void checkFirstRun:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-//     //     NSString* callbackId = [arguments objectAtIndex:0];
-        
-//     //     CDVPluginResult* pluginResult = nil;
-//     //     NSString* javaScript = nil;
-        
-//     //     @try {
-            
-//     //         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//     //         NSString *isFirstRun = @"1";
-            
-//     //         if (![defaults objectForKey:@"firstRun"]) {
-//     //             [defaults setObject:[NSDate date] forKey:@"firstRun"];
-//     //         } else {
-//     //             isFirstRun = @"0";
-//     //         }
-        
-//     //         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:isFirstRun];
-//     //         javaScript = [pluginResult toSuccessCallbackString:callbackId];
-//     //     } @catch (NSException* exception) {
-//     //         // could not get locale
-//     //         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_JSON_EXCEPTION messageAsString:[exception reason]];
-//     //         javaScript = [pluginResult toErrorCallbackString:callbackId];
-//     //     }
-//     //     [self writeJavascript:javaScript];
-//     // }
+            String first_run = "0";
+
+            // if app has run, return false
+            if ( !prefs.getBoolean( "has_run", false ) ) {
+                first_run = "1";
+                prefs.edit().putBoolean( "has_run", true ).commit();
+            }
+
+            callbackContext.success( first_run );
+        } catch ( Exception e ) {
+            callbackContext.error( e.getMessage() );
+        }
+    }
+}
 
 //     // private void checkDebug:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
 //     //     NSString* callbackId = [arguments objectAtIndex:0];
@@ -119,4 +116,3 @@ public class NativeChecks extends CordovaPlugin {
 //     //         UIRemoteNotificationTypeSound
 //     //      ];
 //     // }
-}

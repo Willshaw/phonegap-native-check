@@ -7,6 +7,27 @@ var NativeChecks = {
             "getAppVersion", 
             []
         );
+    },
+    // returns false on error
+    checkFirstRun: function( error_callback ) {
+        cordova.exec(
+            function( isFirstRun ) {
+                console.log( 'pre parse: ' + isFirstRun );
+                isFirstRun = parseInt( isFirstRun, 10 );
+                console.log( 'after parse: ' + isFirstRun );
+                if( isFirstRun ) {
+                    return true;
+                }
+                return false;
+            }, 
+            function( err ) {
+                error_callback( err );
+                return false;
+            }, 
+            "NativeChecks", 
+            "checkFirstRun", 
+            []
+        );
     }
 };
 
@@ -17,32 +38,6 @@ module.exports = NativeChecks;
 //     this.debug = true;
 //     this.adhoc = true;
 
-//     this.getVersion = function() {
-//         cordova.exec(
-//             function( version ) {
-//                 return version;
-//             },
-//             function(err) {},
-//             "AppChecks",
-//             "getVersion",
-//             []
-//         );
-//     };
-
-//     this.checkFirstRun = function() {
-//         cordova.exec(
-//             function( isFirstRun ) {
-//                 isFirstRun = parseInt( isFirstRun, 10 );
-//                 if( isFirstRun && !this.debug ) {
-//                     return true;
-//                 }
-//             },
-//             function(err) {},
-//             "AppChecks",
-//             "checkFirstRun",
-//             []
-//         );
-//     };
 
 //     this.checkDebug = function() {
 //         cordova.exec(
