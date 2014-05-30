@@ -9,16 +9,11 @@ var NativeChecks = {
         );
     },
     // returns false on error
-    checkFirstRun: function( error_callback ) {
+    checkFirstRun: function( callback, error_callback ) {
         cordova.exec(
             function( isFirstRun ) {
-                console.log( 'pre parse: ' + isFirstRun );
                 isFirstRun = parseInt( isFirstRun, 10 );
-                console.log( 'after parse: ' + isFirstRun );
-                if( isFirstRun ) {
-                    return true;
-                }
-                return false;
+                callback( isFirstRun );
             }, 
             function( err ) {
                 error_callback( err );
@@ -26,6 +21,22 @@ var NativeChecks = {
             }, 
             "NativeChecks", 
             "checkFirstRun", 
+            []
+        );
+    },
+    // return true/false for DEBUG (USB) build
+    checkDebug: function( callback, error_callback ) {
+        cordova.exec(
+            function( isDebug ) {
+                isDebug = parseInt( isDebug, 10 );
+                callback( isDebug );
+            }, 
+            function( err ) {
+                error_callback( err );
+                return false;
+            },
+            "NativeChecks",
+            "checkDebug",
             []
         );
     }
