@@ -39,68 +39,23 @@ var NativeChecks = {
             "checkDebug",
             []
         );
-    }
+    },
+    // return true/false if not installed via Google Play
+    checkAdhoc: function( callback, error_callback ) {
+        cordova.exec(
+            function( isAdhoc ) {
+                isAdhoc = parseInt( isAdhoc, 10 );
+                callback( isAdhoc );
+            }, 
+            function( err ) {
+                error_callback( err );
+                return false;
+            },
+            "NativeChecks",
+            "checkAdhoc",
+            []
+        );
+    }    
 };
 
 module.exports = NativeChecks;
-
-// var NativeChecks = function() {
-
-//     this.debug = true;
-//     this.adhoc = true;
-
-
-//     this.checkDebug = function() {
-//         cordova.exec(
-//             function( d ) {
-//                 d = parseInt( d, 10 );
-//                 if( d ) {
-//                     this.debug = true; 
-//                 } else {
-//                     this.debug = false;
-//                 }
-//             },
-//             function(err) {},
-//             "AppChecks",
-//             "checkDebug",
-//             []
-//         );
-//     };
-
-//     this.isDebug = function() {
-//         return this.debug;
-//     };
-
-//     this.checkAdhoc = function() {
-//         cordova.exec(
-//             function( d ) {
-//                 d = parseInt( d, 10 );
-//                 if( d ) {
-//                     this.adhoc = true; 
-//                 } else {
-//                     this.adhoc = false;
-//                 }
-//             },
-//             function(err) {},
-//             "AppChecks",
-//             "checkAdhoc",
-//             []
-//         );
-//     };
-
-//     this.isAdhoc = function() {
-//         return this.adhoc;
-//     };
-
-//     this.registerPush = function() {
-//         cordova.exec(
-//             function() {},
-//             function(err) {},
-//             "AppChecks",
-//             "registerPush",
-//             []
-//         );
-//     };
-
-//     return this;    
-// };

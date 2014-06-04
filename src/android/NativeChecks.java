@@ -25,6 +25,9 @@ public class NativeChecks extends CordovaPlugin {
         } else if ( action.equals( "checkDebug" ) ) {
             this.checkDebug( callbackContext );
             return true;
+        } else if ( action.equals( "checkAdhoc" ) ) {
+            this.checkDebug( callbackContext );
+            return true;
         }
         return false;
     }
@@ -84,61 +87,24 @@ public class NativeChecks extends CordovaPlugin {
             // callbackContext.error( e.getMessage() + " : " + e.getCause() );
             callbackContext.error( "An error has become the application" );
         }
-    }    
+    }
+
+    private void checkAdhoc( CallbackContext callbackContext ) {
+        try {            
+            PackageManager packageManager = this.cordova.getActivity().getPackageManager();
+            String adhoc_value;
+            String installer = packageManager.getInstallerPackageName( "com.willshawmedia.pluginCheck" );
+            
+            if ( installer == null ) {
+                adhoc_value = "1";
+            } else {
+                adhoc_value = "0";
+            }
+
+            callbackContext.success( adhoc_value );
+        } catch ( Exception e ) {
+            // callbackContext.error( e.getMessage() + " : " + e.getCause() );
+            callbackContext.error( "An error has become the application" );
+        }
+    }
 }
-
-//     // private void checkDebug:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-//     //     NSString* callbackId = [arguments objectAtIndex:0];
-        
-//     //     CDVPluginResult* pluginResult = nil;
-//     //     NSString* javaScript = nil;
-        
-//     //     @try {
-            
-//     //         NSString *isDebug = @"0";
-//     //         #ifdef DEBUG
-//     //             isDebug = @"1";
-//     //         #endif
-            
-//     //         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:isDebug];
-//     //         javaScript = [pluginResult toSuccessCallbackString:callbackId];
-//     //     } @catch (NSException* exception) {
-//     //         // could not get locale
-//     //         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_JSON_EXCEPTION messageAsString:[exception reason]];
-//     //         javaScript = [pluginResult toErrorCallbackString:callbackId];
-//     //     }
-//     //     [self writeJavascript:javaScript];
-//     // }
-
-//     // private void checkAdhoc:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-//     //     NSString* callbackId = [arguments objectAtIndex:0];
-        
-//     //     CDVPluginResult* pluginResult = nil;
-//     //     NSString* javaScript = nil;
-        
-//     //     @try {
-            
-//     //         NSString *isAdhoc = @"0";
-//     // #ifdef ADHOC
-//     //         isAdhoc = @"1";
-//     // #endif
-            
-//     //         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:isAdhoc];
-//     //         javaScript = [pluginResult toSuccessCallbackString:callbackId];
-//     //     } @catch (NSException* exception) {
-//     //         // could not get locale
-//     //         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_JSON_EXCEPTION messageAsString:[exception reason]];
-//     //         javaScript = [pluginResult toErrorCallbackString:callbackId];
-//     //     }
-//     //     [self writeJavascript:javaScript];
-//     // }
-
-//     // private void registerPush:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-//     //     // Register for push notifications, only if an event has been subscribed to
-//     //     [
-//     //      [UIApplication sharedApplication] registerForRemoteNotificationTypes:
-//     //         UIRemoteNotificationTypeBadge |
-//     //         UIRemoteNotificationTypeAlert |
-//     //         UIRemoteNotificationTypeSound
-//     //      ];
-//     // }
