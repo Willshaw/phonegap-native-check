@@ -11,11 +11,8 @@
 @interface AppChecks : CDVPlugin
 
 - (void) getVersion:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
-- (void) getDeviceID:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
 - (void) checkFirstRun:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
 - (void) checkDebug:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
 - (void) checkAdhoc:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
-- (void) registerPush:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
-- (void) identifyMixpanel:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
 
 @end

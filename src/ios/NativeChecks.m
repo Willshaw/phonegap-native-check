@@ -11,27 +11,6 @@
 
 @implementation AppChecks
 
-- (void) getDeviceID:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-    NSString* callbackId = [arguments objectAtIndex:0];
-    
-    CDVPluginResult* pluginResult = nil;
-    NSString* javaScript = nil;
-    
-    @try {
-        
-        NSUUID *oNSUUID = [[UIDevice currentDevice] identifierForVendor];
-        NSString* device_id = [oNSUUID UUIDString];
-        
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:device_id];
-        javaScript = [pluginResult toSuccessCallbackString:callbackId];
-    } @catch (NSException* exception) {
-        // could not get locale
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_JSON_EXCEPTION messageAsString:[exception reason]];
-        javaScript = [pluginResult toErrorCallbackString:callbackId];
-    }
-    [self writeJavascript:javaScript];
-}
-
 - (void) getVersion:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
     NSString* callbackId = [arguments objectAtIndex:0];
     
@@ -123,16 +102,6 @@
         javaScript = [pluginResult toErrorCallbackString:callbackId];
     }
     [self writeJavascript:javaScript];
-}
-
-- (void) registerPush:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-    // Register for push notifications, only if an event has been subscribed to
-    [
-     [UIApplication sharedApplication] registerForRemoteNotificationTypes:
-        UIRemoteNotificationTypeBadge |
-        UIRemoteNotificationTypeAlert |
-        UIRemoteNotificationTypeSound
-     ];
 }
 
 @end
