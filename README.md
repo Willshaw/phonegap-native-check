@@ -13,6 +13,6 @@ Use the cordova CLI:
 
 #### Remove 
 
-```cordova plugin remove com.willshawmedia.phonegap.checks```
+```cordova plugin remove com.willshawmedia.phonegap.NativeChecks```
 
 ### Methods
