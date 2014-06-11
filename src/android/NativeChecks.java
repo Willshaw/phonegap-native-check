@@ -1,5 +1,7 @@
 package com.willshawmedia.phonegap;
 
+import java.util.Locale;
+
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
@@ -7,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ApplicationInfo;
@@ -27,6 +30,9 @@ public class NativeChecks extends CordovaPlugin {
             return true;
         } else if ( action.equals( "checkAdhoc" ) ) {
             this.checkDebug( callbackContext );
+            return true;
+        } else if ( action.equals( "getCountryCode" ) ) {
+            this.getCountryCode( callbackContext );
             return true;
         }
         return false;
@@ -84,8 +90,7 @@ public class NativeChecks extends CordovaPlugin {
 
             callbackContext.success( debug_value );
         } catch ( Exception e ) {
-            // callbackContext.error( e.getMessage() + " : " + e.getCause() );
-            callbackContext.error( "An error has become the application" );
+            callbackContext.error( e.getMessage() );
         }
     }
 
@@ -103,8 +108,18 @@ public class NativeChecks extends CordovaPlugin {
 
             callbackContext.success( adhoc_value );
         } catch ( Exception e ) {
-            // callbackContext.error( e.getMessage() + " : " + e.getCause() );
-            callbackContext.error( "An error has become the application" );
+            callbackContext.error( e.getMessage() );
+        }
+    }
+
+    private void getCountryCode( CallbackContext callbackContext ) {
+        try {
+            Context context=this.cordova.getActivity().getApplicationContext();
+            String locale = context.getResources().getConfiguration().locale.getCountry(); 
+
+            callbackContext.success( locale );
+        } catch ( Exception e ) {
+            callbackContext.error( e.getMessage() );
         }
     }
 }

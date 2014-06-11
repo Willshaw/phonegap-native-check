@@ -55,7 +55,17 @@ var NativeChecks = {
             "checkAdhoc",
             []
         );
-    }    
+    },
+    // get 2 digit country code  
+    getCountryCode: function( callback, error_callback ) {
+        cordova.exec(
+            callback, 
+            error_callback, 
+            "NativeChecks", 
+            "getCountryCode", 
+            []
+        );
+    },
 };
 
 module.exports = NativeChecks;

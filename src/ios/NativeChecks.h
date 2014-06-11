@@ -14,5 +14,6 @@
 - (void) checkFirstRun:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
 - (void) checkDebug:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
 - (void) checkAdhoc:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+- (void) getCountryCode:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
 
 @end

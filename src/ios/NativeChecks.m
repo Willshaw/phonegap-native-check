@@ -104,4 +104,25 @@
     [self writeJavascript:javaScript];
 }
 
+- (void) getCountryCode:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
+    NSString* callbackId = [arguments objectAtIndex:0];
+    
+    CDVPluginResult* pluginResult = nil;
+    NSString* javaScript = nil;
+    
+    @try {
+        // try to get country code and reutrn to app
+        NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
+        NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
+        
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:countryCode];
+        javaScript = [pluginResult toSuccessCallbackString:callbackId];
+    } @catch (NSException* exception) {
+        // could not get locale
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_JSON_EXCEPTION messageAsString:[exception reason]];
+        javaScript = [pluginResult toErrorCallbackString:callbackId];
+    }
+    [self writeJavascript:javaScript];
+}
+
 @end
