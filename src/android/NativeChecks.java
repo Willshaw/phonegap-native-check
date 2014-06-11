@@ -55,7 +55,7 @@ public class NativeChecks extends CordovaPlugin {
     private void checkFirstRun( CallbackContext callbackContext ) {
         try {
             SharedPreferences prefs = this.cordova.getActivity().getSharedPreferences(
-                                        "com.willshawmedia.PluginCheck", 
+                                        this.cordova.getActivity().getPackageName(), 
                                         0
                                     );
 
@@ -98,7 +98,9 @@ public class NativeChecks extends CordovaPlugin {
         try {            
             PackageManager packageManager = this.cordova.getActivity().getPackageManager();
             String adhoc_value;
-            String installer = packageManager.getInstallerPackageName( "com.willshawmedia.pluginCheck" );
+            String installer = packageManager.getInstallerPackageName( 
+                                this.cordova.getActivity().getPackageName()
+                            );
             
             if ( installer == null ) {
                 adhoc_value = "1";
