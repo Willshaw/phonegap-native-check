@@ -2,38 +2,30 @@
 //  NativeChecks.m
 
 #import "NativeChecks.h"
-#import <Cordova/CDVPluginResult.h>
+#import <Cordova/CDV.h>
 
 @implementation NativeChecks
 
-- (void) getVersion:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-    NSString* callbackId = [arguments objectAtIndex:0];
+- (void) getAppVersion:(CDVInvokedUrlCommand*)command {
     
     CDVPluginResult* pluginResult = nil;
-    NSString* javaScript = nil;
     
     @try {
-                
         NSString* version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
         
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:version];
-        javaScript = [pluginResult toSuccessCallbackString:callbackId];
     } @catch (NSException* exception) {
         // could not get locale
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_JSON_EXCEPTION messageAsString:[exception reason]];
-        javaScript = [pluginResult toErrorCallbackString:callbackId];
     }
-    [self writeJavascript:javaScript];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void) checkFirstRun:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-    NSString* callbackId = [arguments objectAtIndex:0];
+- (void) checkFirstRun:(CDVInvokedUrlCommand*)command {
     
     CDVPluginResult* pluginResult = nil;
-    NSString* javaScript = nil;
     
     @try {
-        
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSString *isFirstRun = @"1";
         
@@ -44,20 +36,16 @@
         }
     
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:isFirstRun];
-        javaScript = [pluginResult toSuccessCallbackString:callbackId];
     } @catch (NSException* exception) {
         // could not get locale
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_JSON_EXCEPTION messageAsString:[exception reason]];
-        javaScript = [pluginResult toErrorCallbackString:callbackId];
     }
-    [self writeJavascript:javaScript];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void) checkDebug:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-    NSString* callbackId = [arguments objectAtIndex:0];
+- (void) checkDebug:(CDVInvokedUrlCommand*)command {
     
     CDVPluginResult* pluginResult = nil;
-    NSString* javaScript = nil;
     
     @try {
         
@@ -67,43 +55,36 @@
         #endif
         
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:isDebug];
-        javaScript = [pluginResult toSuccessCallbackString:callbackId];
     } @catch (NSException* exception) {
         // could not get locale
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_JSON_EXCEPTION messageAsString:[exception reason]];
-        javaScript = [pluginResult toErrorCallbackString:callbackId];
     }
-    [self writeJavascript:javaScript];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void) checkAdhoc:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-    NSString* callbackId = [arguments objectAtIndex:0];
+- (void) checkAdhoc:(CDVInvokedUrlCommand*)command {
     
     CDVPluginResult* pluginResult = nil;
-    NSString* javaScript = nil;
     
     @try {
         
         NSString *isAdhoc = @"0";
-#ifdef ADHOC
+        
+        #ifdef ADHOC
         isAdhoc = @"1";
-#endif
+        #endif
         
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:isAdhoc];
-        javaScript = [pluginResult toSuccessCallbackString:callbackId];
     } @catch (NSException* exception) {
         // could not get locale
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_JSON_EXCEPTION messageAsString:[exception reason]];
-        javaScript = [pluginResult toErrorCallbackString:callbackId];
     }
-    [self writeJavascript:javaScript];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void) getCountryCode:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
-    NSString* callbackId = [arguments objectAtIndex:0];
+- (void) getCountryCode:(CDVInvokedUrlCommand*)command {
     
     CDVPluginResult* pluginResult = nil;
-    NSString* javaScript = nil;
     
     @try {
         // try to get country code and reutrn to app
@@ -111,13 +92,11 @@
         NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
         
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:countryCode];
-        javaScript = [pluginResult toSuccessCallbackString:callbackId];
     } @catch (NSException* exception) {
         // could not get locale
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_JSON_EXCEPTION messageAsString:[exception reason]];
-        javaScript = [pluginResult toErrorCallbackString:callbackId];
     }
-    [self writeJavascript:javaScript];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 @end

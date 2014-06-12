@@ -1,19 +1,12 @@
-//
-//  AppChecks
-//  socialite-pw-build
-//
-//  Created by Peter Williamson on 11/10/2013.
-//
-//
+//  NativeChecks
+#import <Cordova/CDV.h>
 
-#import <Cordova/CDVPlugin.h>
+@interface NativeChecks : CDVPlugin
 
-@interface AppChecks : CDVPlugin
-
-- (void) getVersion:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
-- (void) checkFirstRun:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
-- (void) checkDebug:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
-- (void) checkAdhoc:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
-- (void) getCountryCode:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options;
+- (void) getAppVersion:(CDVInvokedUrlCommand*)command;
+- (void) checkFirstRun:(CDVInvokedUrlCommand*)command;
+- (void) checkDebug:(CDVInvokedUrlCommand*)command;
+- (void) checkAdhoc:(CDVInvokedUrlCommand*)command;
+- (void) getCountryCode:(CDVInvokedUrlCommand*)command;
 
 @end
