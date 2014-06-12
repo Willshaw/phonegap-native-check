@@ -1,15 +1,10 @@
 //
-//  AppChecks.m
-//  socialite-pw-build
-//
-//  Created by Peter Williamson on 11/10/2013.
-//
-//
+//  NativeChecks.m
 
-#import "AppChecks.h"
+#import "NativeChecks.h"
 #import <Cordova/CDVPluginResult.h>
 
-@implementation AppChecks
+@implementation NativeChecks
 
 - (void) getVersion:(NSMutableArray *)arguments withDict:(NSMutableDictionary *)options {
     NSString* callbackId = [arguments objectAtIndex:0];
