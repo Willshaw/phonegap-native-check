@@ -46,7 +46,7 @@ public class NativeChecks extends CordovaPlugin {
                                         0
                                     );
 
-            callbackContext.success( packageInfo.versionCode );
+            callbackContext.success( packageInfo.versionName );
         } catch ( Exception e ) {
             callbackContext.error( e.getMessage() );
         }
